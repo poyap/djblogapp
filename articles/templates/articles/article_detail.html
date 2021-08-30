@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}{% load crispy_forms_tags %}{% load article_tags %} {% block title %}
+<title>Detail</title>
+{% endblock %}{% block jumbotron %}{% endblock %}{% block content %}
+<div class="text-center">
+  <h1 class="text-capitalize text-info">{{ article.title }}</h1>
+  <small
+    class="text-muted">by <a href="{% url 'articles:user-article-list' article.user.username %}">
+      {{ article.user.username }}</a> | {{article.released_date|date:"d,M,Y"}}</small
+  >
+  
+</div>
+<br />
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  {% endfor %}
+  {% endif %}
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-9">
+    
+      <p class="text-justify  ">{{ article.content|markdown }}</p>
+      <small>Tags: {% for tag in article.tags.all %}<a href="{% url 'articles:article-tag-list' tag.slug %}">
+        {{ tag }}{% if not forloop.last %},{% endif %}</a>{% empty %}no tag specified{% endfor %}</small><br>
+        <small class="bg-light">also see articles by <a href="{% url 'articles:user-article-list' article.user.username %}">
+          {{ article.user.username }}
+          </a></small>
+        <hr>
+    
+      {% if comments %}
+      <br><br>
+      <div class="comments">
+        <p>{{ comments|length }} comment{{comments|pluralize:'s'}} on this post.</p>
+        {% for comment in comments %}
+        <div class="card text-muted bg-light mt-2 w-75">
+          <div class="card-body p-2">
+            <small class="card-subtitle p-0">{{comment.name}} - {{comment.created|date:"d,M,Y"}}</small>
+            <hr class="m-0">
+            <p class="card-text">{{comment.body|linebreaks}}</p>
+          </div>
+        </div> 
+        {% endfor %}
+      </div>
+       {% else %}
+       <p>No comments yet. </p>
+       {% endif %}
+   
+       <br><br><br>
+       {% if user.is_authenticated %}
+       <div class="mb-5">
+         <h4 class="border-bottom mb-4">comment on this post</h4>
+         <form method="POST" class="w-50">
+           {% csrf_token %}
+           {{form|crispy}}
+           <input type="submit" class="btn btn-primary" value="submit">
+         </form>
+       </div>
+       {% else %}
+       <h3 class="text-muted text-center mb-5">Only registered users can post comments, please <a href="{% url 'articles:login' %}?next={{request.path}}">Login</a></h3>
+       {% endif %}
+    </div>
+    <div class="col-lg-3 mt-2">
+      <h3 class="border-bottom">Similar articles</h3>
+      {% for article in similar_posts %}
+        <ul class="m-0">
+          <li><a href="{{ article.get_absolute_url }}">{{ article.title }}</a></li>
+        </ul>
+      {% empty %}
+      <small class="text-dark" >There is no similar articles yet.</small>
+      {% endfor %}
+    </div>
+    
+  </div>
+  
+  {% endblock %}
+</div>
+
+<!-- A tiny note: as you can see if i wanna to link to update page i have to get primary_key(pk) -->

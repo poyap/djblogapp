@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}{% load static %}{% load article_tags %}{% block title %}
+<title>Your posts</title>
+{% endblock %}{% block jumbotron %}{% endblock %} {% block content %}
+<h5>Hi {{request.user|title}}</h5>
+<h3>Edit your posts here...</h3>
+<!-- get first image in the user Article model -->
+<!-- because i didn't separate the model Article in each article the default image will be set -->
+<div class="row w-75">
+  <div class="col-md-10 mb-5">
+    {% if object_list %} {% for obj in object_list %}
+    <div class="card mt-2 shadow-sm h-auto">
+      <div class="card-body">
+        <h6 class="card-title text-capitalize">{{ obj.title }}</h6>
+        <p class="card-content">
+          {{ obj.content|markdown|truncatewords_html:50 }}... .<a
+            href="{% url 'articles:article-detail' pk=obj.pk %}"
+            >see more</a
+          >
+        </p>
+        <div class="card-link">
+          <a
+            href="{% url 'articles:article-delete' pk=obj.pk %}"
+            class="btn btn-danger btn-sm"
+            >Delete</a
+          >
+          <a
+            href="{% url 'articles:article-update' pk=obj.pk %}"
+            class="btn btn-info btn-sm"
+            >Edit</a
+          >
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% include 'pagination.html' with page=page_obj %}
+  </div>
+
+  <div class="col-md-2">
+    <a href="{% url 'articles:article-create' %}">Create another post?</a>
+  </div>
+</div>
+{% else %}
+<div class="m-5">
+  <h3 class="text-danger">No items yet</h3>
+  <a href="{% url 'articles:article-create' %}"
+    >Click to Write your first article</a
+  >
+</div>
+
+{% endif %} {% endblock %}

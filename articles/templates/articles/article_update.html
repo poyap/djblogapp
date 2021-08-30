@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}{% load crispy_forms_tags %}{% block title %}
+<title>Update posts</title>
+{% endblock %} {% block jumbotron %}{% endblock %} {% block content %}
+
+<form action="." method="POST">
+  {% csrf_token %} {{form|crispy}}
+  <input
+    type="submit"
+    name="save"
+    id="btn-sub"
+    value="Save changes"
+    class="btn btn-success"
+  />
+</form>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}{% load crispy_forms_tags %}{% block title %}
+<title>Login</title>
+{% endblock %}{% block jumbotron %}{% endblock %}{% block content %}
+
+<div class="register-box p-2">
+    <fieldset class="form-group">
+        <legend class="mb-2 border-bottom">Log in</legend>
+        <form action="." method="POST" class="mb-2">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Login" class="btn btn-success"></input>
+            <small class="text-muted ml-2"><a href="{% url 'password_reset' %}">forgot your password?</a></small>
+        </form> 
+        <small class="text-muted border-top" >You didn't signed up yet? <a href="{% url 'articles:register' %}">Register</a></small>
+    </fieldset>
+</div>
+
+
+{% endblock %}

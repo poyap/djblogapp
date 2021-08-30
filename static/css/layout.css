@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding-top: 55px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+.fa {
+  padding: 5px;
+  width: 30px;
+  text-decoration: none;
+  border-radius: 20%;
+  text-align: center;
+}
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+.fa-instagram {
+  background: #fc0061;
+  color: white;
+}
+.fa:hover {
+  opacity: 0.7;
+}
+.footer {
+  margin-top: auto;
+}
+.footer > a {
+  margin: 0px 0px 20px 0px;
+}
+.jumbotron > p {
+  margin-left: 25px;
+}
+img {
+  border-radius: 50%;
+}
+

@@ -1,0 +1,76 @@
+{% extends 'layout.html' %} {% block title %}
+<title>About page</title>
+{% endblock %} {% block content %} {% if message_name %}
+<center>
+  <h3 class="text-success">Thanks {{message_name}} for your feedback</h3>
+  <p>your message has been sent to us.</p>
+</center>
+{% else %}
+<div class="row">
+  <div class="col-lg-6 mt-4">
+    <p>
+      This website is created for developers and everyone who interested in
+      technology.
+      <br />Also,people can share and post their thoughts and expriences to
+      anyone.
+    </p>
+    <address>
+      If you had any questions or critics and suggestions feel free to contact
+      us via this form or through social media:
+      <a
+        href="https://www.linkedin.com/in/pouya-pargam-1917b6218"
+        class="fa fa-linkedin"
+      ></a>
+      <a href="https://www.instagram.com/pouyap19" class="fa fa-instagram"></a>
+    </address>
+  </div>
+  <div class="col-lg-6">
+    <h3>Get in touch</h3>
+    <form action="{% url 'about-view' %}" method="POST" class="form-group">
+      {% csrf_token %}
+      <div class="form-row mb-3">
+        <div class="col-lg-6">
+          <label for="name" class="">Enter your name:</label>
+          <input
+            type="text"
+            name="message-name"
+            id="name"
+            class="form-control"
+            placeholder="Your name"
+          />
+        </div>
+        <div class="col-lg-6">
+          <label for="mail" class="">Enter your email:</label>
+          <input
+            type="email"
+            name="message-email"
+            id="mail"
+            class="form-control"
+            placeholder="example@gmail.com"
+          />
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-lg-12">
+          <textarea
+            name="message-content"
+            id="msg"
+            cols="75"
+            rows="10"
+            placeholder="your message"
+            class="form-control mb-2"
+          ></textarea>
+          <input
+            type="submit"
+            id="send_mail"
+            value="Send"
+            class="btn btn-lg btn-primary"
+          />
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<br /><br />
+{% endif %} {% endblock %}

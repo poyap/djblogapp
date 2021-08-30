@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}{% load crispy_forms_tags %}{% block title %}
+<title>Register</title>
+{% endblock %}
+
+{% block jumbotron %}{% endblock %} {% block content %}
+<h4>Create an acount for more features...</h4>
+<br>
+<div class="w-50">
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Register</legend>
+        <form action="." method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+    
+            <input type="submit" value="Register" class="btn btn-primary"></input>
+        </form> 
+        <small>Already have an acount? <a href="{% url 'articles:login' %}">Login</a></small>
+     
+
+    </fieldset>
+   
+</div>
+
+
+{% endblock %}

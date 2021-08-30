@@ -1,0 +1,10 @@
+{% extends 'layout.html' %}{% load crispy_forms_tags %}{% block title %}
+<title>Create and write your thoughts</title>
+{% endblock %}{% block jumbotron %}{% endblock %} {% block content %}
+<h4 class="my-5">Write down your articles here to share with others.</h4>
+
+<form action="." method="POST">
+  {% csrf_token %} {{form|crispy}}
+  <input type="submit" name="save" id="btn-sub" value="Submit" class="btn btn-success" />
+</form>
+{% endblock %}

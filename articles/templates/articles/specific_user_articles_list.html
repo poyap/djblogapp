@@ -1,0 +1,125 @@
+{% extends 'layout.html' %} {% load static %}{% load article_tags %} {% block title %}
+<title>The website articles</title>
+{% endblock %}{% block content %}
+
+<style>
+  .card {
+  min-height: 5rem;
+}
+.col-md-2 img {
+  width: 90%;
+}
+.linked-card {
+  color: #000;
+}
+.linked-card:hover {
+  text-decoration: none;
+}
+.footer{
+  clear: both;
+  position: relative;
+  height: 150px;
+}
+@media only screen and (max-width: 768px) {
+  .card {
+    max-height: 10rem;
+  }
+  .col-md-2 img {
+    width: 10%;
+  }
+  .btn {
+    margin-top: 1rem;
+  }
+}
+</style>
+<div class="row">
+  <div class="col-md-8">
+    <h2 class="mb-3">article by {{ view.kwargs.username }} ({{page_obj.paginator.count}})</h2>
+    {% for instance in object_list %}
+    
+      <div class="card mt-3 shadow">
+        <div class="row text-wrap overflow-hidden text-justify p-3">
+          <div class="col-md-2">
+            
+            <img
+              src="{{ instance.user.profile.profile_pic.url }}"
+              alt="profile picture"
+              class="rounded-circle img-fluid"
+            />
+
+          </div>
+          <div class="col-md-10">
+            <a
+            href="{% url 'articles:article-detail' pk=instance.pk %}"
+            class="linked-card"
+          >
+            <h4 id="title" class="card-title m-0 text-capitalize">
+              {{instance.title}}
+            </h4>
+          </a>
+            <small id="sub-title" class="card-subtitle text-muted">
+              by {{instance.user}} | {{instance.released_date|date:'d,M,Y'}}
+            </small>
+            <p id="content" class="card-text mb-0">
+              {{instance.content|markdown|truncatewords_html:20}}
+            </p>
+            {% if instance.tags.all %}
+            <p class="text-secondary">Tags: {% for tag in instance.tags.all %}
+                <a href="{% url 'articles:article-tag-list' tag.slug %}">{{ tag.name }}</a>
+                {% if not forloop.last %},{% endif %}{% endfor %}
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    
+    {% endfor %}
+  </div>
+
+  <!-- search form -->
+  <div class="col-md-4 mt-3">
+    <form action="." method="GET" name="form" id="form" class="form-inline mb-2">
+      <label for="search_inp">Search articles by title:</label>
+      <input
+        type="text"
+        name="search-area"
+        id="search_inp"
+        value="{{search_input}}"
+        class="form-control"
+      />
+      <input
+        type="submit"
+        id="search"
+        value="search"
+        class="btn btn-secondary ml-1 form-control"
+      />
+    </form>
+
+    <span>
+      Create your post?
+      <a
+        href="{% if request.user.is_authenticated %}{% url 'articles:article-create' %}{% else %}{% url 'articles:login' %}{% endif %}"
+        >click here</a
+      ></span
+    >
+
+  </div>
+  {% include 'pagination.html' with page=page_obj %}
+</div>
+<div class="footer container">
+  <hr />
+  <h6 class="text-success d-inline">Social Media:</h6>
+  <a
+    href="https://www.linkedin.com/in/pouya-pargam-1917b6218"
+    class="fa fa-linkedin"
+  ></a>
+  <a href="https://www.instagram.com/pouyap19" class="fa fa-instagram"></a>
+  <a href="{% url 'about-view' %}" class="d-block float-right">About this website</a><br>
+  <a href="{% url 'about-view' %}" class="d-block float-right">Contact me</a>
+  <p class="text-center ">copyright<span class="fa fa-copyright" aria-hidden="true"></span>{% now 'Y' %}</p>
+
+    
+
+</div>
+
+{% endblock %}

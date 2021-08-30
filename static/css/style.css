@@ -1,0 +1,32 @@
+/* register page */
+.register-box {
+  margin: 50px auto 0 auto;
+  border: 1px solid rgba(83, 83, 83,0.5);
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 5px;
+  width: 40%;
+  height: auto;
+  position: relative;
+  
+}
+.register-box >*{
+  padding: 10px;
+}
+
+.bottom-text {
+  position: absolute;
+}
+
+
+/* profile page */
+.form-wrapper {
+  border: 1px solid rgb(187, 185, 185);
+  background: rgb(245, 242, 242);
+}
+.form>* {
+ padding: 5px;
+}
+.image > img {
+  width: 100%;
+  margin: 20px 20px;
+}

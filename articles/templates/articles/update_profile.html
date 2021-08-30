@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}{% load crispy_forms_tags %}{% load static %}{% block title %}
+<title>Update profile</title>
+{% endblock %} {% block jumbotron %}{% endblock %} {% block content %}
+
+ {% if messages %}
+ {% for message in messages %}
+
+<div class="alert alert-info alert-dismissible fade show w-75" role="alert">
+  {{ message }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+ {% endfor %}
+ {% endif %}
+<br>
+<h4 class="text-info mb-3 ">Update your profile informations</h4>
+<div class="form-wrapper w-75 shadow-lg text-wrap">
+  <div class="row form-group">
+    <div class="col-lg-2 image">
+      <!-- {% for obj in object_list %}
+     
+      <img src="{{ obj.user.profile.profile_pic.url }}" alt="profile picture" />
+      
+      {% endfor %} -->
+      <img src="{{ object.url }}" alt="profile picture">
+    </div>
+    
+
+    <div class="col-lg-10 form">
+      <form action="." method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ u_form|crispy }} {{ p_form|crispy }}
+        <input
+          type="submit"
+          name="save"
+          id="btn-sub"
+          value="Save changes"
+          class="btn btn-success"
+        />
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

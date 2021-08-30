@@ -1,0 +1,24 @@
+{% extends 'layout.html' %} {% block title %}
+<title>Delete page</title>
+{% endblock %}{% block jumbotron %}{% endblock %}{% block content %}
+<div class="w-75">
+  <form action="." method="POST">
+    {% csrf_token %}
+    <h5>Are you sure you want to delete this post with this title?</h5>
+    <p class="text-muted">Post title: {{ object.title }}</p>
+    <input
+      type="submit"
+      name="delete"
+      id="del-but"
+      value="Yes"
+      class="btn btn-danger"
+    />
+    <a
+      href="{% url 'articles:article-cutomize' %}"
+      class="btn btn-dark text-decoration-none"
+      >Cancel</a
+    >
+  </form>
+</div>
+
+{% endblock %}
