@@ -27,6 +27,14 @@
     <div class="col-lg-9">
     
       <p class="text-justify  ">{{ article.content|markdown }}</p>
+      <br>
+      <!-- like form  -->
+      <form action="{% url 'articles:article-like' article.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit" name="article_id" value={{article.id}} class="btn btn-primary btn-sm">
+          Like
+        </button> - {{article.total_likes}} like{{article.total_likes|pluralize:'s'}}
+      </form>
       <small>Tags: {% for tag in article.tags.all %}<a href="{% url 'articles:article-tag-list' tag.slug %}">
         {{ tag }}{% if not forloop.last %},{% endif %}</a>{% empty %}no tag specified{% endfor %}</small><br>
         <small class="bg-light">also see articles by <a href="{% url 'articles:user-article-list' article.user.username %}">

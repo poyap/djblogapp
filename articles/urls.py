@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import (ArticleCreateView,ArticleListView,ArticleUpdateView,ArticleDeleteView, CustomLoginView,CustomListView,UserRegistration,contact_form_view,user_update_profile_view,article_detail, list_article_view,UserArticleView
+from .views import (ArticleCreateView,ArticleListView,ArticleUpdateView,ArticleDeleteView, CustomLoginView,CustomListView,UserRegistration,contact_form_view,user_update_profile_view,article_detail, list_article_view,UserArticleView,likeview,
 )
 from django.contrib.auth.views import (
     LogoutView,
@@ -26,7 +26,8 @@ urlpatterns = [
     path('article/<int:pk>/update/',ArticleUpdateView.as_view(), name='article-update'),
     path('article/<int:pk>/delete/',ArticleDeleteView.as_view(), name='article-delete'),
     path('articles/edit',CustomListView.as_view(), name='article-cutomize'),
-    path('profile/<int:pk>/update/', user_update_profile_view, name='update-view')
+    path('profile/<int:pk>/update/', user_update_profile_view, name='update-view'),
+    path('like/<int:pk>',likeview, name='article-like'),
 ]
 if settings.DEBUG:
      urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

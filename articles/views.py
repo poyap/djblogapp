@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db.models import Count
 from django.http import request
+from django.http.response import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render,redirect
 from django.urls import reverse
 from .models import Article, Profile,User,Comment
@@ -10,8 +11,6 @@ from django.views.generic import (
     UpdateView,
     CreateView,
     DeleteView,
-    
-    
 )
 from django.core.paginator import Paginator,EmptyPage, PageNotAnInteger
 from django.views.generic.edit import FormView
@@ -28,6 +27,15 @@ from django.contrib.auth import login
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required 
 from taggit.models import Tag
+
+
+
+def likeview(request, pk):
+    article = get_object_or_404(Article,id=request.POST.get('article_id'))
+    article.likes.add(request.user)
+    return HttpResponseRedirect(reverse('articles:article-detail',args=[str(pk)]))
+
+
 
 class CustomLoginView(LoginView):
     template_name = 'articles/login_view.html'
@@ -81,6 +89,7 @@ class ArticleListView(ListView):
         #     context['object_list'] = context['object_list'].filter(
         #         title__icontains=search_input)
         # context['search_input'] = search_input
+    
         context['user_pic'] = Profile.objects.filter(_user__id = self.request.user.id).first()
         return context
 

@@ -15,7 +15,11 @@ class Article(models.Model):
     content       = models.TextField()
     released_date = models.DateField('date published',auto_now_add=True)
     tags       = TaggableManager()
-    
+    likes   = models.ManyToManyField(User,related_name='blog_article')
+
+    def total_likes(self):
+        return self.likes.count()
+
     def __str__(self):
         return f'{self.title}   |   {str(self.user)}'
 
