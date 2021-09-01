@@ -62,7 +62,7 @@
             <p id="content" class="card-text mb-0">
               {{  instance.content|markdown|truncatewords_html:30 }}
             </p>
-            <span>{{ instance.total_likes }} - like{{instance.total_likes|pluralize:'s'}}</span>
+            <span class="bg-warning">{{ instance.total_likes }} - like{{instance.total_likes|pluralize:'s'}}</span>
             {% if instance.tags.all %}
             <p class="text-secondary">Tags: {% for tag in instance.tags.all %}
                 <a href="{% url 'articles:article-tag-list' tag.slug %}">{{ tag.name }}</a>

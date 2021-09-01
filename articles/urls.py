@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import (ArticleCreateView,ArticleListView,ArticleUpdateView,ArticleDeleteView, CustomLoginView,CustomListView,UserRegistration,contact_form_view,user_update_profile_view,article_detail, list_article_view,UserArticleView,likeview,
+from .views import (ArticleCreateView,ArticleListView,ArticleUpdateView,ArticleDeleteView, CustomLoginView,CustomListView,UserRegistration,contact_form_view,user_update_profile_view,article_detail, list_article_view,UserArticleView,likeview
 )
 from django.contrib.auth.views import (
     LogoutView,

@@ -29,12 +29,25 @@
       <p class="text-justify  ">{{ article.content|markdown }}</p>
       <br>
       <!-- like form  -->
-      <form action="{% url 'articles:article-like' article.pk %}" method="POST">
-        {% csrf_token %}
-        <button type="submit" name="article_id" value={{article.id}} class="btn btn-primary btn-sm">
-          Like
-        </button> - {{article.total_likes}} like{{article.total_likes|pluralize:'s'}}
-      </form>
+      {% if user.is_authenticated %}
+        
+          <form action="{% url 'articles:article-like' article.pk %}" method="POST" class="d-inline">
+            {% csrf_token %}
+            {% if liked %}
+            <button type="submit" name="article_id" value={{article.id}} class="btn btn-danger btn-sm">
+              UnLike
+            </button>
+            {% else %}
+            <button type="submit" name="article_id" value={{article.id}} class="btn btn-primary btn-sm">
+              Like
+            </button>
+            {% endif %}
+            - {{article.total_likes}} like{{article.total_likes|pluralize:'s'}}
+          </form>
+      {% else %}
+      <a href="{% url 'articles:login' %}">Login</a> to like - {{article.total_likes}} like{{article.total_likes|pluralize:'s'}}
+      {% endif %}
+      <br>
       <small>Tags: {% for tag in article.tags.all %}<a href="{% url 'articles:article-tag-list' tag.slug %}">
         {{ tag }}{% if not forloop.last %},{% endif %}</a>{% empty %}no tag specified{% endfor %}</small><br>
         <small class="bg-light">also see articles by <a href="{% url 'articles:user-article-list' article.user.username %}">

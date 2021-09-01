@@ -31,9 +31,21 @@ from taggit.models import Tag
 
 
 def likeview(request, pk):
-    article = get_object_or_404(Article,id=request.POST.get('article_id'))
-    article.likes.add(request.user)
+    article = get_object_or_404(Article,id=request.POST.get('article_id'))   
+    liked = False
+    if article.likes.filter(id=request.user.id).exists():
+        article.likes.remove(request.user)
+        liked=False
+    else:
+        article.likes.add(request.user)
+        liked = True
     return HttpResponseRedirect(reverse('articles:article-detail',args=[str(pk)]))
+
+#if you want to add unlike button
+# def unlikeview(request, pk):
+#     article = get_object_or_404(Article,id=request.POST.get('article_id'))
+#     article.likes.remove(request.user)
+#     return HttpResponseRedirect(reverse('articles:article-detail',args=[str(pk)]))
 
 
 
@@ -176,7 +188,10 @@ def article_detail(request,  pk):
             form = CommentForm()  
     else:
         form = CommentForm()  
-
+    
+    liked = False
+    if article.likes.filter(id=request.user.id):
+        liked = True
     article_tags_ids = article.tags.values_list('id',flat=True)
     similar_posts    = Article.objects.filter(tags__in=article_tags_ids).exclude(id=article.id)
     similar_posts    = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags', '-released_date')
@@ -184,6 +199,7 @@ def article_detail(request,  pk):
     'comments':comments,
     'form': form,
     'similar_posts': similar_posts,
+    'liked': liked
     })
 
 # class ArticleDetailView(DetailView, FormView):
