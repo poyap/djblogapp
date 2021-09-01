@@ -2,8 +2,8 @@
 <title>Update posts</title>
 {% endblock %} {% block jumbotron %}{% endblock %} {% block content %}
 
-<form action="." method="POST">
-  {% csrf_token %} {{form|crispy}}
+<form action="." method="POST" class="w-75">
+  {% csrf_token %} {{form.media}}{{form|crispy}}
   <input
     type="submit"
     name="save"
@@ -12,5 +12,5 @@
     class="btn btn-success"
   />
 </form>
-
+<br><br>
 {% endblock %}

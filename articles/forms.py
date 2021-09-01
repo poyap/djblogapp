@@ -10,7 +10,7 @@ class ArticleCreateForm(forms.ModelForm):
     class Meta:
         model  = Article
         fields = '__all__'
-        exclude = ['user']
+        exclude = ['user','likes']
 
         widgets = {
             'content':forms.Textarea(attrs={'placeholder':'You can use markdown syntax here'})

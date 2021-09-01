@@ -187,7 +187,8 @@ def article_detail(request,  pk):
             messages.success(request,message='Your comment has been added successfuly.')
             form = CommentForm()  
     else:
-        form = CommentForm()  
+        initial = {'name':request.user.username,'email':request.user.email}
+        form = CommentForm(initial=initial)  
     
     liked = False
     if article.likes.filter(id=request.user.id):

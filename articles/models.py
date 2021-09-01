@@ -1,9 +1,10 @@
 from django.db import models
-from django.db.models.base import Model
 from django.urls import reverse
 from django.contrib.auth.models import User
 from PIL import Image
 from taggit.managers import TaggableManager
+from ckeditor.fields import RichTextField
+
 # Create your models here.
 
 
@@ -12,7 +13,8 @@ class Article(models.Model):
 
     user        = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
     title         = models.CharField(max_length=300)
-    content       = models.TextField()
+    # content       = models.TextField()
+    content       = RichTextField(blank=True, null=True)
     released_date = models.DateField('date published',auto_now_add=True)
     tags       = TaggableManager()
     likes   = models.ManyToManyField(User,related_name='blog_article')

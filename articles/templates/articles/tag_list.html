@@ -60,10 +60,10 @@
             </h4>
         </a>
             <small id="sub-title" class="card-subtitle text-muted">
-              by {{instance.user}} | {{instance.released_date|date:'d,M,Y'}}
+              by <a href="{% url 'articles:user-article-list' instance.user.username %}">{{instance.user}}</a> | {{instance.released_date|date:'d,M,Y'}}
             </small>
             <p id="content" class="card-text mb-0">
-              {{instance.content|slice:':130'}} ...
+              {{instance.content|slice:':130'|safe}} ...
             </p>
             <p class="text-secondary">Tags: {% for tag in instance.tags.all %}
                 <a href="{% url 'articles:article-tag-list' tag.slug %}">{{ tag.name }}</a>
