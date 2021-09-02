@@ -33,9 +33,10 @@
 }
 </style>
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-md-8 col-sm-12">
     {% for instance in object_list %}
-  
+
+      <!-- card box -->
       <div class="card mt-3 shadow">
         <div class="row text-wrap overflow-hidden text-justify p-3">
           <div class="col-md-2">
@@ -74,10 +75,11 @@
       </div>
     
     {% endfor %}
+    {% include 'pagination.html' with page=page_obj %}
   </div>
 
   <!-- search form -->
-  <div class="col-md-4 mt-3">
+  <div class="col-md-4 col-sm-12 mt-3">
     <form action="." method="GET" name="form" id="form" class="form-inline mb-2">
       <label for="search_inp">Search articles by title:</label>
       <input
@@ -104,7 +106,7 @@
     >
 
   </div>
-  {% include 'pagination.html' with page=page_obj %}
+  
 </div>
 <div class="footer container">
   <hr />

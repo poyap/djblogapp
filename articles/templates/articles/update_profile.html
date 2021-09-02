@@ -1,11 +1,31 @@
 {% extends 'layout.html' %}{% load crispy_forms_tags %}{% load static %}{% block title %}
 <title>Update profile</title>
 {% endblock %} {% block jumbotron %}{% endblock %} {% block content %}
+<style>
+  @media only screen and (max-width:900px) {
+  .image >img{
+    width:50%;
+    margin: 10px 10px;
+    border-bottom: 1px solid lightblue;
+  }
+}
+  @media only screen and (min-width:900px) {
+  .image >img{
+    width:35%;
+    margin: 10px 10px;
+    border-bottom: 1px solid lightblue;
+  }
+}
+@media only screen and (max-width:400px) {
+  .form-wrapper{
+    width:100%;
 
+  }
+}
+</style>
  {% if messages %}
  {% for message in messages %}
-
-<div class="alert alert-info alert-dismissible fade show w-75" role="alert">
+<div class="alert alert-info alert-dismissible fade show" role="alert">
   {{ message }}
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
@@ -14,20 +34,24 @@
  {% endfor %}
  {% endif %}
 <br>
-<h4 class="text-info mb-3 ">Update your profile informations</h4>
-<div class="form-wrapper w-75 shadow-lg text-wrap">
-  <div class="row form-group">
-    <div class="col-lg-2 image">
+
+  <h4 class="text-dark mb-3 ml-5 ">Update your profile information</h4>
+<div class="form-wrapper shadow-lg text-wrap mb-5 mx-5">
+  <div class="form-group p-3">
+    <div class="image d-block">
       <!-- {% for obj in object_list %}
      
       <img src="{{ obj.user.profile.profile_pic.url }}" alt="profile picture" />
       
       {% endfor %} -->
       <img src="{{ object.url }}" alt="profile picture">
+      
     </div>
     
+    
+    
 
-    <div class="col-lg-10 form">
+    <div class="form border-top">
       <form action="." method="POST" enctype="multipart/form-data">
         {% csrf_token %} {{ u_form|crispy }} {{ p_form|crispy }}
         <input
@@ -41,5 +65,7 @@
     </div>
   </div>
 </div>
+
+
 
 {% endblock %}

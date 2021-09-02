@@ -4,7 +4,6 @@
   border: 1px solid rgba(83, 83, 83,0.5);
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 5px;
-  width: 40%;
   height: auto;
   position: relative;
   
@@ -16,7 +15,6 @@
 .bottom-text {
   position: absolute;
 }
-
 
 /* profile page */
 .form-wrapper {
@@ -30,3 +28,12 @@
   width: 100%;
   margin: 20px 20px;
 }
+/* for some reason it didn't work. */
+
+/* @media only screen and (max-width:600px) {
+  .image >img{
+    width:70%;
+    margin: 10px 10px
+  }
+  
+} */

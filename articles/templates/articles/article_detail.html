@@ -24,7 +24,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-lg-9">
+    <div class="col-lg-9 col-sm-12">
     
       <p class="text-justify  ">{{ article.content|markdown }}</p>
       <br>
@@ -48,46 +48,16 @@
       <a href="{% url 'articles:login' %}">Login</a> to like - {{article.total_likes}} like{{article.total_likes|pluralize:'s'}}
       {% endif %}
       <br>
+      <!-- tags -->
       <small>Tags: {% for tag in article.tags.all %}<a href="{% url 'articles:article-tag-list' tag.slug %}">
         {{ tag }}{% if not forloop.last %},{% endif %}</a>{% empty %}no tag specified{% endfor %}</small><br>
         <small class="bg-light">also see articles by <a href="{% url 'articles:user-article-list' article.user.username %}">
           {{ article.user.username }}
           </a></small>
         <hr>
-    
-      {% if comments %}
-      <br><br>
-      <div class="comments">
-        <p>{{ comments|length }} comment{{comments|pluralize:'s'}} on this post.</p>
-        {% for comment in comments %}
-        <div class="card text-muted bg-light mt-2 w-75">
-          <div class="card-body p-2">
-            <small class="card-subtitle p-0">{{comment.name}} - {{comment.created|date:"d,M,Y"}}</small>
-            <hr class="m-0">
-            <p class="card-text">{{comment.body|linebreaks}}</p>
-          </div>
-        </div> 
-        {% endfor %}
-      </div>
-       {% else %}
-       <p>No comments yet. </p>
-       {% endif %}
-   
-       <br><br><br>
-       {% if user.is_authenticated %}
-       <div class="mb-5">
-         <h4 class="border-bottom mb-4">comment on this post</h4>
-         <form method="POST" class="w-50">
-           {% csrf_token %}
-           {{form|crispy}}
-           <input type="submit" class="btn btn-primary" value="submit">
-         </form>
-       </div>
-       {% else %}
-       <h3 class="text-muted text-center mb-5">Only registered users can post comments, please <a href="{% url 'articles:login' %}?next={{request.path}}">Login</a></h3>
-       {% endif %}
     </div>
-    <div class="col-lg-3 mt-2">
+        <!-- similar articles -->
+    <div class="col-lg-3 col-sm-12 my-2">
       <h3 class="border-bottom">Similar articles</h3>
       {% for article in similar_posts %}
         <ul class="m-0">
@@ -97,10 +67,39 @@
       <small class="text-dark" >There is no similar articles yet.</small>
       {% endfor %}
     </div>
-    
+  {% if comments %}
+  <br><br>
+  <div class="comments col-sm-12 col-lg-10">
+      <p>{{ comments|length }} comment{{comments|pluralize:'s'}} on this post.</p>
+      {% for comment in comments %}
+      <div class="card text-muted bg-light mt-2 w-75">
+        <div class="card-body p-2">
+          <small class="card-subtitle p-0">{{comment.name}} - {{comment.created|date:"d,M,Y"}}</small>
+          <hr class="m-0">
+          <p class="card-text">{{comment.body|linebreaks}}</p>
+        </div>
+      </div> 
+      {% endfor %}
   </div>
-  
-  {% endblock %}
+   {% else %}
+   <p>No comments yet. </p>
+   {% endif %}
+
+   <br><br><br>
+   {% if user.is_authenticated %}
+  <div class="my-5 col-sm-12">
+     <h4 class="border-bottom mb-4">comment on this post</h4>
+     <form method="POST" class="w-50">
+       {% csrf_token %}
+       {{form|crispy}}
+       <input type="submit" class="btn btn-primary" value="submit">
+     </form>
+  </div>
+   {% else %}
+   <h3 class="text-muted text-center mb-5">Only registered users can post comments, please <a href="{% url 'articles:login' %}?next={{request.path}}">Login</a></h3>
+   {% endif %}
 </div>
+{% endblock %}
+
 
 <!-- A tiny note: as you can see if i wanna to link to update page i have to get primary_key(pk) -->

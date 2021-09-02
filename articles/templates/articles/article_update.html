@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}{% load crispy_forms_tags %}{% block title %}
 <title>Update posts</title>
 {% endblock %} {% block jumbotron %}{% endblock %} {% block content %}
-
+<h3 class="text-secondary">Edit your post...</h3>
+<hr>
 <form action="." method="POST" class="w-75">
   {% csrf_token %} {{form.media}}{{form|crispy}}
   <input

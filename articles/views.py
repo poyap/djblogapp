@@ -183,13 +183,20 @@ def article_detail(request,  pk):
         if form.is_valid():
             new_comment = form.save(commit=False)
             new_comment.article = article
+            new_comment.name = request.user.username
+            new_comment.email = request.user.email
             new_comment.save()
             messages.success(request,message='Your comment has been added successfuly.')
+            #when comment has been sent the form will be empty. 
             form = CommentForm()  
-    else:
-        initial = {'name':request.user.username,'email':request.user.email}
-        form = CommentForm(initial=initial)  
+    # i used the user information to Initialize the name and email of the form.so we won't need this.
     
+    # if request.user.is_authenticated:
+    #     # initial = {'name':request.user.username,'email':request.user.email}
+    #     form = CommentForm(initial=initial)  
+    
+    else:
+        form = CommentForm()
     liked = False
     if article.likes.filter(id=request.user.id):
         liked = True
@@ -279,8 +286,7 @@ def contact_form_view(request,*args, **kwargs):
 
 #function view for updating profile
 def user_update_profile_view(request, *args, **kwargs):
-  
-    print(request.user)
+
     if request.method == 'POST': 
         u_form = UpdateProfileForm(request.POST,instance=request.user)
         p_form = UpdateProfilePic(request.POST,request.FILES,instance= request.user.profile)

@@ -1,7 +1,18 @@
 {% extends 'layout.html' %}{% load crispy_forms_tags %}{% block title %}
 <title>Login</title>
 {% endblock %}{% block jumbotron %}{% endblock %}{% block content %}
-
+<style>
+    @media only screen and (max-width: 600px) {
+    .register-box {
+        width: 75%;
+    }
+}
+    @media only screen and (min-width: 600px) {
+    .register-box {
+        width: 50%;
+    }
+}
+</style>
 <div class="register-box p-2">
     <fieldset class="form-group">
         <legend class="mb-2 border-bottom">Log in</legend>
