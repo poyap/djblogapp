@@ -82,7 +82,7 @@
       {% endfor %}
   </div>
    {% else %}
-   <p>No comments yet. </p>
+   <p class="ml-3">No comments yet. </p>
    {% endif %}
 
    <br><br><br>
@@ -96,7 +96,7 @@
      </form>
   </div>
    {% else %}
-   <h3 class="text-muted text-center mb-5">Only registered users can post comments, please <a href="{% url 'articles:login' %}?next={{request.path}}">Login</a></h3>
+   <h3 class="text-muted text-center m-5">Only registered users can post comments, please <a href="{% url 'articles:login' %}?next={{request.path}}">Login</a></h3>
    {% endif %}
 </div>
 {% endblock %}

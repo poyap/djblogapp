@@ -1,8 +1,9 @@
 {% extends 'layout.html' %}{% load static %}{% load article_tags %}{% block title %}
 <title>Your posts</title>
 {% endblock %}{% block jumbotron %}{% endblock %} {% block content %}
-<h5>Hi {{request.user|title}}</h5>
-<h3>Edit your posts here...</h3>
+<h3>Hi {{request.user|title}}</h3>
+<h5>Edit your posts here...</h5>
+
 <!-- get first image in the user Article model -->
 <!-- because i didn't separate the model Article in each article the default image will be set -->
 <div class="row">

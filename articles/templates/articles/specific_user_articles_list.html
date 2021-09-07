@@ -76,25 +76,9 @@
     {% endfor %}
   </div>
 
-  <!-- search form -->
-  <div class="col-md-4 mt-3">
-    <form action="." method="GET" name="form" id="form" class="form-inline mb-2">
-      <label for="search_inp">Search articles by title:</label>
-      <input
-        type="text"
-        name="search-area"
-        id="search_inp"
-        value="{{search_input}}"
-        class="form-control"
-      />
-      <input
-        type="submit"
-        id="search"
-        value="search"
-        class="btn btn-secondary ml-1 form-control"
-      />
-    </form>
-
+  <!-- sidebar -->
+  <div class="col-md-4 mt-5">
+    {% get_latest_articles 5 %}
     <span>
       Create your post?
       <a
