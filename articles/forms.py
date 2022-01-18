@@ -32,28 +32,7 @@ class UpdateProfileForm(forms.ModelForm):
         fields = ['username','email']
 
 
-    # i used crispy form tags so i don't need this anymore.
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['username'].widget.attrs['class'] = 'form-control'
-    #     self.fields['email'].widget.attrs['class'] = 'form-control'
  
-            # this was a way of adding some widgets to html tags rendered,but i think since we inheritted User class it did't work.
-    # widgets = {
-    #     'username' : forms.TextInput(attrs={'class':'form-control'}),
-    #     'first_name' : forms.TextInput(attrs={'class':'form-control'}),
-    #     'last_name' : forms.TextInput(attrs={'class':'form-control'}),
-    #     'email' : forms.EmailInput(attrs={'class':'form-control'}),
-    # }
-    
-    #this was totally worked.
-    
-    # def clean_pass_validation(self):
-    #     if self.cleaned_data['new_password'] == self.cleaned_data['confirm_password']:
-    #         return self.cleaned_data['confirm_password']
-    #     else:
-    #         raise forms.ValidationError('passwords don\'t match')
-
 class UpdateProfilePic(forms.ModelForm):
     class Meta:
         model = Profile
