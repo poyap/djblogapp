@@ -210,33 +210,7 @@ def article_detail(request,  pk):
     'liked': liked
     })
 
-# class ArticleDetailView(DetailView, FormView):
 
-#     template_name = 'articles/article_detail.html'
-#     form_class = CommentForm
-#     queryset = Article.objects.all()
-
- 
-  
-#     def get_object(self,*args, **kwargs):
-#         object = super(ArticleDetailView,self).get_object()       
-#         return object
-
-#     obj      = get_object()
-#     comments = obj.comments.filter(active=True)
-#     def form_valid(self,form):
-#             new_comment = form.save(commit=False)
-#             new_comment.self.obj = self.obj
-#             new_comment.save()
-#             return super(UserRegistration,self).form_valid(form)
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['form'] = CommentForm()
-#         context['comments'] = self.comments
-#         return context
-#     context = get_context_data()
-#     print(context)
 
 
 class ArticleDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
